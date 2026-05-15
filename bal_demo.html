@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAL Bakery — Кофейня · Алматы</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --honey: #E8A020;
+    --honey-light: #F5C842;
+    --honey-pale: #FFF4D6;
+    --cream: #FFFBF2;
+    --warm: #FDF6E8;
+    --brown: #3D2B1F;
+    --brown-mid: #6B4C3B;
+    --brown-light: #A07860;
+    --text: #2C1A0E;
+    --text-muted: #8B6B55;
+    --border: rgba(232,160,32,0.2);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 48px;
+    background: rgba(255,251,242,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-bee { font-size: 22px; }
+  .nav-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--brown); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; letter-spacing: 0.5px; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--honey); }
+  .nav-cta { background: var(--honey); color: white; border: none; padding: 10px 24px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; border-radius: 40px; text-decoration: none; }
+  .nav-cta:hover { background: var(--honey-light); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 100px 48px 60px; background: var(--warm); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(232,160,32,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .hero::after { content: ''; position: absolute; bottom: -80px; left: -80px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(232,160,32,0.08) 0%, transparent 70%); border-radius: 50%; }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--honey-pale); border: 1px solid rgba(232,160,32,0.3); padding: 6px 16px; border-radius: 40px; font-size: 12px; color: var(--honey); letter-spacing: 1px; margin-bottom: 28px; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(48px, 6vw, 80px); font-weight: 700; line-height: 1.05; color: var(--brown); margin-bottom: 12px; }
+  .hero-title em { font-style: italic; color: var(--honey); }
+  .hero-subtitle { font-size: 16px; line-height: 1.7; color: var(--text-muted); margin-bottom: 36px; max-width: 420px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+  .btn-honey { background: var(--honey); color: white; border: none; padding: 14px 32px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; cursor: pointer; border-radius: 40px; transition: all 0.3s; text-decoration: none; display: inline-block; }
+  .btn-honey:hover { background: var(--honey-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,160,32,0.3); }
+  .btn-outline { background: transparent; color: var(--brown); border: 1.5px solid rgba(61,43,31,0.2); padding: 14px 32px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; cursor: pointer; border-radius: 40px; transition: all 0.3s; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { border-color: var(--honey); color: var(--honey); }
+  .hero-meta { display: flex; gap: 28px; align-items: center; }
+  .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); }
+  .hero-meta-item span { font-size: 16px; }
+  .hero-visual { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 16px; }
+  .hero-img-main { border-radius: 24px; overflow: hidden; height: 400px; }
+  .hero-img-main img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .hero-img-small { border-radius: 16px; overflow: hidden; height: 160px; }
+  .hero-img-small img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-rating { background: white; border-radius: 16px; padding: 12px 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; align-self: flex-start; }
+  .rating-stars { color: var(--honey); font-size: 14px; letter-spacing: 1px; }
+  .rating-text { font-size: 12px; color: var(--text-muted); }
+  .rating-num { font-size: 20px; font-weight: 700; color: var(--brown); font-family: 'Playfair Display', serif; }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--honey); padding: 14px 0; overflow: hidden; }
+  .marquee { display: flex; gap: 0; animation: marquee 18s linear infinite; white-space: nowrap; }
+  .marquee-item { font-size: 13px; color: white; letter-spacing: 2px; text-transform: uppercase; padding: 0 32px; opacity: 0.9; }
+  .marquee-dot { color: rgba(255,255,255,0.5); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ABOUT */
+  .about { padding: 100px 48px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .about-img { border-radius: 16px; overflow: hidden; }
+  .about-img:first-child { grid-row: span 2; border-radius: 20px; }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about-img:first-child { height: 420px; }
+  .about-img:not(:first-child) { height: 200px; }
+  .section-tag { display: inline-block; background: var(--honey-pale); color: var(--honey); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 40px; margin-bottom: 18px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; color: var(--brown); line-height: 1.2; margin-bottom: 18px; }
+  .section-title em { font-style: italic; color: var(--honey); }
+  .about-text { font-size: 15px; line-height: 1.85; color: var(--text-muted); margin-bottom: 14px; }
+  .about-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .pill { background: var(--warm); border: 1px solid var(--border); color: var(--brown-mid); font-size: 12px; padding: 6px 14px; border-radius: 40px; }
+
+  /* MENU */
+  .menu-section { padding: 100px 48px; background: var(--warm); }
+  .menu-header { text-align: center; margin-bottom: 48px; }
+  .menu-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 40px; }
+  .menu-tab { background: white; border: 1.5px solid var(--border); color: var(--text-muted); padding: 9px 20px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.5px; cursor: pointer; transition: all 0.25s; border-radius: 40px; }
+  .menu-tab:hover { border-color: var(--honey); color: var(--honey); }
+  .menu-tab.active { background: var(--honey); border-color: var(--honey); color: white; font-weight: 500; }
+  .menu-panel { display: none; max-width: 960px; margin: 0 auto; }
+  .menu-panel.active { display: block; }
+  .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .menu-card { background: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; transition: all 0.25s; border: 1px solid transparent; }
+  .menu-card:hover { border-color: var(--border); box-shadow: 0 4px 16px rgba(232,160,32,0.1); transform: translateY(-1px); }
+  .menu-card-name { font-size: 14px; color: var(--brown); line-height: 1.4; padding-right: 12px; }
+  .menu-card-price { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--honey); font-weight: 500; white-space: nowrap; }
+
+  /* LOCATIONS */
+  .locations { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+  .locations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+  .location-card { background: var(--warm); border-radius: 20px; padding: 28px 24px; border: 1px solid var(--border); transition: all 0.3s; }
+  .location-card:hover { border-color: var(--honey); box-shadow: 0 8px 32px rgba(232,160,32,0.12); transform: translateY(-3px); }
+  .location-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--brown); margin-bottom: 10px; }
+  .location-addr { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+  .location-hours { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--honey); font-weight: 500; }
+
+  /* INFO STRIP */
+  .info-strip { background: var(--brown); padding: 60px 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .info-block { text-align: center; }
+  .info-icon { font-size: 28px; margin-bottom: 14px; }
+  .info-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,251,242,0.5); margin-bottom: 8px; }
+  .info-value { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--cream); line-height: 1.6; }
+
+  /* CONTACT */
+  .contact { padding: 110px 48px; background: var(--honey-pale); text-align: center; position: relative; overflow: hidden; }
+  .contact::before { content: '🍯'; position: absolute; font-size: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.05; pointer-events: none; }
+  .contact-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 60px); font-weight: 700; color: var(--brown); margin-bottom: 16px; position: relative; }
+  .contact-title em { font-style: italic; color: var(--honey); }
+  .contact-sub { font-size: 15px; color: var(--text-muted); margin-bottom: 44px; position: relative; }
+  .contact-phones { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; position: relative; }
+  .phone-block { text-align: center; }
+  .phone-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .phone-num { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 500; color: var(--brown); text-decoration: none; transition: color 0.3s; display: block; }
+  .phone-num:hover { color: var(--honey); }
+  .contact-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+  /* FOOTER */
+  footer { background: var(--brown); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-logo { display: flex; align-items: center; gap: 8px; }
+  .footer-bee { font-size: 20px; }
+  .footer-name { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--honey-light); letter-spacing: 2px; }
+  .footer-text { font-size: 12px; color: rgba(255,251,242,0.4); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 12px; color: rgba(255,251,242,0.5); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--honey-light); }
+
+  .demo-badge { position: fixed; bottom: 20px; right: 20px; background: var(--honey); color: white; padding: 9px 16px; font-size: 11px; letter-spacing: 1px; font-weight: 500; z-index: 999; border-radius: 40px; box-shadow: 0 4px 16px rgba(232,160,32,0.3); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span class="nav-bee">🐝</span><span class="nav-name">BAL</span></div>
+  <ul class="nav-links">
+    <li><a href="javascript:void(0)" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Меню</a></li>
+    <li><a href="javascript:void(0)" onclick="document.getElementById('locations').scrollIntoView({behavior:'smooth'})">Адреса</a></li>
+    <li><a href="javascript:void(0)" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Контакты</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Заказать</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content" style="animation: fadeUp 1.2s ease both;">
+    <div class="hero-badge">🐝 Десерты · Торты · Выпечка</div>
+    <h1 class="hero-title">Где каждый день<br>начинается<br><em>со вкуса</em></h1>
+    <p class="hero-subtitle">Уютная кофейня с домашней выпечкой, завтраками и сладкими витринами. 6 адресов по всему Алматы.</p>
+    <div class="hero-actions">
+      <button class="btn-honey" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Смотреть меню</button>
+      <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Заказать торт</button>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span>📍</span> 6 филиалов в Алматы</div>
+      <div class="hero-meta-item"><span>🕗</span> 08:00 — 23:00</div>
+      <div class="hero-meta-item"><span>⭐</span> 4.6 · 2376 отзывов</div>
+    </div>
+  </div>
+  <div class="hero-visual" style="animation: fadeUp 1.2s 0.2s ease both;">
+    <div class="hero-rating">
+      <div class="rating-num">4.6</div>
+      <div><div class="rating-stars">★★★★★</div><div class="rating-text">2376 отзывов · 2ГИС</div></div>
+    </div>
+    <div class="hero-img-main">
+      <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80" alt="Выпечка BAL">
+    </div>
+    <div class="hero-img-row">
+      <div class="hero-img-small"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80" alt="Кофе"></div>
+      <div class="hero-img-small"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&q=80" alt="Торт"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span class="marquee-item">Завтраки</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Торты на заказ</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Свежая выпечка</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Specialty кофе</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Десерты</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">6 филиалов</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Доставка</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Завтраки</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Торты на заказ</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Свежая выпечка</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Specialty кофе</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Десерты</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">6 филиалов</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Доставка</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-imgs fade-in">
+    <div class="about-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Кофейня"></div>
+    <div class="about-img"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Завтрак"></div>
+    <div class="about-img"><img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=400&q=80" alt="Выпечка"></div>
+  </div>
+  <div class="fade-in">
+    <span class="section-tag">🐝 О нас</span>
+    <h2 class="section-title">BAL — это<br><em>тепло</em> в каждом<br>кусочке</h2>
+    <p class="about-text">BAL (мёд по-казахски) — это место, где каждое утро начинается с аромата свежей выпечки и хорошего кофе. Мы готовим с любовью и натуральными ингредиентами.</p>
+    <p class="about-text">Наши торты, десерты и завтраки стали любимым ритуалом для тысяч алматинцев. 6 уютных кофеен по всему городу — и каждая как дома.</p>
+    <div class="about-pills">
+      <span class="pill">🌿 Натуральные ингредиенты</span>
+      <span class="pill">🌙 Халал продукт</span>
+      <span class="pill">🎂 Торты на заказ</span>
+      <span class="pill">💻 Можно с ноутбуком</span>
+      <span class="pill">🚗 Доставка</span>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="menu-header fade-in">
+    <span class="section-tag">Наше меню</span>
+    <h2 class="section-title" style="text-align:center;">Всё что нужно для <em>идеального дня</em></h2>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="showTab('sweet',this)">🥞 Сладкие завтраки</button>
+    <button class="menu-tab" onclick="showTab('savory',this)">🍳 Сытные завтраки</button>
+    <button class="menu-tab" onclick="showTab('salads',this)">🥗 Закуски и салаты</button>
+    <button class="menu-tab" onclick="showTab('main',this)">🍝 Основное</button>
+    <button class="menu-tab" onclick="showTab('pasta',this)">🍜 Паста и ризотто</button>
+    <button class="menu-tab" onclick="showTab('healthy',this)">🥑 Здоровое питание</button>
+    <button class="menu-tab" onclick="showTab('vitrina',this)">🎂 Витрина</button>
+  </div>
+
+  <div id="tab-sweet" class="menu-panel active">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-card-name">Каша пшенная с тыквой и миндалём</span><span class="menu-card-price">2 270 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Каша рисовая с клубникой</span><span class="menu-card-price">2 060 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Каша овсяная с бананом</span><span class="menu-card-price">2 160 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Вареники с творогом</span><span class="menu-card-price">1 890 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Панна Котта с клубникой</span><span class="menu-card-price">2 440 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Мини сырники</span><span class="menu-card-price">2 850 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Сырники из топлёного творога</span><span class="menu-card-price">2 590 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Творожные панкейки с клубникой</span><span class="menu-card-price">1 950 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Блины с медовым маслом</span><span class="menu-card-price">1 420 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Блины со сгущёнкой и кедровым орехом</span><span class="menu-card-price">1 630 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Чиа йогурт с домашней гранолой</span><span class="menu-card-price">2 850 ₸</span></div>
+    </div>
+  </div>
+
+  <div id="tab-savory" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-card-name">Деревенский завтрак</span><span class="menu-card-price">3 650 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Яйцо бенедикт с жая</span><span class="menu-card-price">4 180 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Яйцо бенедикт с лососем</span><span class="menu-card-price">4 590 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Французский завтрак</span><span class="menu-card-price">2 720 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Глазунья с овощами</span><span class="menu-card-price">3 130 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Скрэмбл тост с грибами</span><span class="menu-card-price">2 330 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Омлет с мортаделлой</span><span class="menu-card-price">3 070 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Шакшука с яйцом пашот и сыром</span><span class="menu-card-price">2 920 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Скандинавский завтрак</span><span class="menu-card-price">5 280 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Яйца по-турецки с лососем</span><span class="menu-card-price">4 230 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Стейк пиканья с яйцом и овощами гриль</span><span class="menu-card-price">5 260 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Сэндвич с томлёной говядиной в соусе барбекю</span><span class="menu-card-price">3 570 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Тост с риетом из тунца и авокадо</span><span class="menu-card-price">2 830 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Картофельный драник с лососем</span><span class="menu-card-price">3 640 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Картофельный драник с кониной</span><span class="menu-card-price">2 840 ₸</span></div>
+    </div>
+  </div>
+
+  <div id="tab-salads" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-card-name">Греческий салат</span><span class="menu-card-price">2 810 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Цезарь салат с курицей</span><span class="menu-card-price">3 490 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Салат с баклажанами</span><span class="menu-card-price">2 860 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Салат с запечённой свеклой и муссом фета</span><span class="menu-card-price">2 690 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Зелёный салат</span><span class="menu-card-price">2 760 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Салат с креветками</span><span class="menu-card-price">4 140 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Мини буррата с помидорами</span><span class="menu-card-price">2 760 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Тёплый салат с кониной и шпинатом</span><span class="menu-card-price">2 760 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Брускетта с лососем</span><span class="menu-card-price">3 140 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Брускетта с креветками и печёным перцем</span><span class="menu-card-price">2 760 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Батат фри</span><span class="menu-card-price">1 530 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Картофельное фри</span><span class="menu-card-price">1 280 ₸</span></div>
+    </div>
+  </div>
+
+  <div id="tab-main" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-card-name">Курица миланезе со сливочным Орзо</span><span class="menu-card-price">3 860 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Конские колбаски с картофельным пюре</span><span class="menu-card-price">3 860 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Бургер говяжий с картошкой фри</span><span class="menu-card-price">4 070 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Шведские фрикадельки</span><span class="menu-card-price">3 920 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Лосось с картофелем и брокколи</span><span class="menu-card-price">5 840 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Томлёные щёки с орзо в грибном соусе</span><span class="menu-card-price">3 390 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Бефстроганов с кониной</span><span class="menu-card-price">3 780 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Филе конины с картофельным драником и шпинатом</span><span class="menu-card-price">5 490 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Бедро цыплёнка с рисом басмати и овощами</span><span class="menu-card-price">2 970 ₸</span></div>
+    </div>
+  </div>
+
+  <div id="tab-pasta" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-card-name">Феттучини Альфредо с курицей</span><span class="menu-card-price">3 120 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Феттучини с лососем</span><span class="menu-card-price">4 340 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Спагетти болоньезе</span><span class="menu-card-price">3 660 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Спагетти в соусе наполи со страчателлой</span><span class="menu-card-price">2 860 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Спагетти с креветками в шпинатном соусе</span><span class="menu-card-price">3 710 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Ризотто с шпинатным соусом, креветками и страчателлой</span><span class="menu-card-price">3 960 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Лимонное ризотто с лососем</span><span class="menu-card-price">4 160 ₸</span></div>
+    </div>
+  </div>
+
+  <div id="tab-healthy" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-card-name">Зелёный боул (яйцо, огурцы, брокколи, авокадо)</span><span class="menu-card-price">2 640 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Боул с индейкой (булгур, печёный перец, соус песто)</span><span class="menu-card-price">3 020 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Боул с тунцом (зелёная гречка, томаты черри, яйцо)</span><span class="menu-card-price">3 040 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Боул с киноа и креветками (шпинат, авокадо)</span><span class="menu-card-price">3 740 ₸</span></div>
+    </div>
+  </div>
+
+  <div id="tab-vitrina" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card"><span class="menu-card-name">Медовик</span><span class="menu-card-price">1 670 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Наполеон</span><span class="menu-card-price">1 790 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Морковный торт</span><span class="menu-card-price">1 540 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Нью-йорк чизкейк</span><span class="menu-card-price">1 840 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Тирамису</span><span class="menu-card-price">2 190 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Фисташковый рулет</span><span class="menu-card-price">2 320 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Чизкейк фисташковый</span><span class="menu-card-price">1 740 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Блинный торт</span><span class="menu-card-price">2 440 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Круассан классический</span><span class="menu-card-price">980 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Круассан миндальный</span><span class="menu-card-price">1 960 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Самса с говядиной</span><span class="menu-card-price">420 ₸</span></div>
+      <div class="menu-card"><span class="menu-card-name">Синнабон</span><span class="menu-card-price">1 040 ₸</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section class="locations" id="locations">
+  <div class="menu-header fade-in" style="text-align:center;">
+    <span class="section-tag">📍 Адреса</span>
+    <h2 class="section-title" style="text-align:center;">Мы рядом —<br><em>6 кофеен</em> в Алматы</h2>
+  </div>
+  <div class="locations-grid">
+    <div class="location-card fade-in">
+      <div class="location-name">Коктем-1</div>
+      <div class="location-addr">м-н Коктем-1, 16<br>1 этаж</div>
+      <div class="location-hours">🕗 08:00 — 23:00 · Ежедневно</div>
+    </div>
+    <div class="location-card fade-in">
+      <div class="location-name">Ыкылас</div>
+      <div class="location-addr">ул. Ыкылас, 8д/1</div>
+      <div class="location-hours">🕗 08:00 — 23:00 · Ежедневно</div>
+    </div>
+    <div class="location-card fade-in">
+      <div class="location-name">Жамбыла</div>
+      <div class="location-addr">ул. Жамбыла, 159</div>
+      <div class="location-hours">🕗 08:00 — 23:00 · Ежедневно</div>
+    </div>
+    <div class="location-card fade-in">
+      <div class="location-name">Сатпаева</div>
+      <div class="location-addr">ул. Сатпаева, 30/5<br>ЖК Riverside</div>
+      <div class="location-hours">🕗 08:00 — 23:00 · Ежедневно</div>
+    </div>
+    <div class="location-card fade-in">
+      <div class="location-name">КАСиТ</div>
+      <div class="location-addr">ул. Досмухамедова, 98</div>
+      <div class="location-hours">🕗 08:00 — 23:00 · Ежедневно</div>
+    </div>
+    <div class="location-card fade-in" style="border: 1.5px dashed rgba(232,160,32,0.4); display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; min-height:130px;">
+      <div style="font-size:28px; margin-bottom:8px;">🐝</div>
+      <div class="location-name" style="font-size:15px;">Скоро новый филиал</div>
+      <div class="location-addr">Следите за нашим Instagram</div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<div class="info-strip">
+  <div class="info-block fade-in"><div class="info-icon">🕗</div><div class="info-label">Работаем</div><div class="info-value">Ежедневно<br>08:00 — 23:00</div></div>
+  <div class="info-block fade-in"><div class="info-icon">🎂</div><div class="info-label">Торты на заказ</div><div class="info-value">Принимаем заказы<br>заранее</div></div>
+  <div class="info-block fade-in"><div class="info-icon">🚗</div><div class="info-label">Доставка</div><div class="info-value">По всему<br>Алматы</div></div>
+  <div class="info-block fade-in"><div class="info-icon">💻</div><div class="info-label">Для работы</div><div class="info-value">Бесплатный Wi-Fi<br>Можно с ноутбуком</div></div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <span class="section-tag" style="position:relative;">🐝 Связаться с нами</span>
+  <h2 class="contact-title">Закажите торт или<br><em>просто приходите</em></h2>
+  <p class="contact-sub">Звоните, пишите в WhatsApp или заходите в любой из 6 филиалов</p>
+  <div class="contact-phones">
+    <div class="phone-block">
+      <div class="phone-label">Оператор быстрого заказа</div>
+      <a href="tel:+77020073443" class="phone-num">+7 702 007 34 43</a>
+    </div>
+    <div class="phone-block">
+      <div class="phone-label">Основной номер</div>
+      <a href="tel:+77020076692" class="phone-num">+7 702 007 66 92</a>
+    </div>
+  </div>
+  <div class="contact-actions">
+    <button class="btn-honey" onclick="window.open('https://wa.me/77020073443','_blank')">Написать в WhatsApp</button>
+    <button class="btn-outline" onclick="window.open('https://www.instagram.com/balbakery','_blank')">Instagram @balbakery</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><span class="footer-bee">🐝</span><span class="footer-name">BAL</span></div>
+  <div class="footer-text">© 2025 BAL Bakery · 6 кофеен в Алматы</div>
+  <div class="footer-links">
+    <a href="javascript:void(0)" onclick="window.open('https://www.instagram.com/balbakery','_blank')">Instagram</a>
+    <a href="javascript:void(0)" onclick="window.open('https://wa.me/77020073443','_blank')">WhatsApp</a>
+  </div>
+</footer>
+
+<div class="demo-badge">🐝 Демо-версия сайта</div>
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
